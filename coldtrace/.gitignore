@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+data/coldtrace.db
+data/coldtrace.db-wal
+data/coldtrace.db-shm
+data/.jwt_secret
+models/*.joblib
+models/model_card.json
+.env
+.pytest_cache/
+node_modules/
+*.log
+.DS_Store

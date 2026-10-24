@@ -1,0 +1,113 @@
+/* ColdTrace design tokens.
+   Bright, high-contrast "enterprise analytics dashboard" theme - white/light-gray surfaces, deep
+   slate text, a saturated teal brand accent, and semantic red/amber/green status colors, in the
+   visual language of tools like Grafana, Datadog, and Splunk's light theme (not literally embedding
+   any of those products - they're separate paid platforms - just borrowing the same design language:
+   generous white space, card elevation via subtle shadows, and color reserved for status/data). */
+:root {
+  --ink:        #eef1f6;   /* page canvas */
+  --panel:      #ffffff;   /* cards, topbar */
+  --panel-2:    #f6f8fb;   /* sidebar surfaces, list items */
+  --panel-3:    #eaeff5;   /* hover / active state */
+  --line:       #d7dee8;
+  --line-soft:  #e4e9f0;
+  --frost:      #0d9488;   /* brand accent - teal-600, still "cold chain" but saturated enough for white */
+  --frost-dim:  #14b8a6;   /* secondary accent / hover */
+  --text:       #0f172a;   /* primary text - near-black slate */
+  --text-dim:   #475569;   /* secondary text */
+  --text-faint: #64748b;   /* tertiary / label text - still >4.5:1 contrast on white */
+  --amber:      #d97706;
+  --red:        #dc2626;
+  --green:      #16a34a;
+  --violet:     #7c3aed;
+
+  /* Google Fonts are loaded via a <link> tag with a full system-font fallback: the app looks right
+     offline too, just slightly less condensed. */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', 'Segoe UI', sans-serif;
+  --font-body:    'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+
+  --radius: 4px;
+  --radius-lg: 8px;
+  --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+  --shadow-md: 0 4px 10px rgba(15,23,42,.06), 0 2px 4px rgba(15,23,42,.05);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+html { color-scheme: light; } /* tells the browser to use light-appropriate native widget colors
+                                  (form fields, scrollbars) instead of guessing. */
+body {
+  margin: 0; background: var(--ink); color: var(--text); font-family: var(--font-body);
+  font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--frost); }
+::selection { background: var(--frost-dim); color: #ffffff; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #c3cddb; border-radius: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--frost); outline-offset: 1px; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.01em; margin: 0; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.led { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); flex: none; }
+.led.ok { background: var(--green); box-shadow: 0 0 6px 1px rgba(22,163,74,.45); }
+.led.warn { background: var(--amber); box-shadow: 0 0 6px 1px rgba(217,119,6,.45); }
+.led.crit { background: var(--red); box-shadow: 0 0 6px 1px rgba(220,38,38,.5); animation: pulse 1.4s infinite; }
+.led.info { background: var(--frost); }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+
+.btn {
+  appearance: none; border: 1px solid var(--line); background: var(--panel); color: var(--text);
+  padding: 7px 13px; border-radius: var(--radius); cursor: pointer; font-weight: 500; font-size: 13px;
+  transition: border-color .12s, background .12s, box-shadow .12s; box-shadow: var(--shadow-sm);
+}
+.btn:hover { border-color: var(--frost-dim); background: var(--panel-2); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--frost); color: #ffffff; border-color: var(--frost); font-weight: 600; }
+.btn-primary:hover { background: #0b8177; border-color: #0b8177; }
+.btn-danger { background: #ffffff; border-color: var(--red); color: var(--red); }
+.btn-danger:hover { background: rgba(220,38,38,.08); }
+.btn-ghost { background: transparent; border-color: transparent; padding: 6px 8px; box-shadow: none; }
+.btn-ghost:hover { border-color: var(--line); background: var(--panel-2); }
+.btn-sm { padding: 4px 9px; font-size: 12px; }
+
+.pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: 999px; font-size: 11.5px;
+  border: 1px solid var(--line); color: var(--text-dim); white-space: nowrap; background: var(--panel-2); }
+.pill.ok { color: #15803d; border-color: rgba(22,163,74,.3); background: rgba(22,163,74,.08); }
+.pill.warn { color: #b45309; border-color: rgba(217,119,6,.3); background: rgba(217,119,6,.08); }
+.pill.crit { color: #b91c1c; border-color: rgba(220,38,38,.3); background: rgba(220,38,38,.08); }
+
+.card { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.hr { height: 1px; background: var(--line-soft); border: none; margin: 12px 0; }
+
+input[type=text], input[type=number], input[type=password], input[type=datetime-local], select, textarea {
+  background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius); padding: 7px 9px; color: var(--text);
+}
+input:focus, select:focus, textarea:focus { border-color: var(--frost-dim); box-shadow: 0 0 0 3px rgba(20,184,166,.15); }
+
+/* Browsers paint their own autofill background/text (sometimes mismatched with the page's theme)
+   unless overridden - this is a common cause of illegible text on remembered logins. */
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+  caret-color: var(--text);
+  transition: background-color 9999s ease-in-out 0s;
+}
+label { font-size: 12px; color: var(--text-dim); display: block; margin-bottom: 4px; font-weight: 500; }
+
+.scrollbox { overflow-y: auto; }
+.muted { color: var(--text-dim); }
+.faint { color: var(--text-faint); }
+.right { text-align: right; }
+.center { text-align: center; }
+.nowrap { white-space: nowrap; }
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.gap-4 { gap: 4px; } .gap-6 { gap: 6px; } .gap-8 { gap: 8px; } .gap-12 { gap: 12px; } .gap-16 { gap: 16px; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.grow { flex: 1 1 auto; }

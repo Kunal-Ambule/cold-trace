@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ColdTrace Driver</title>
+<link rel="manifest" href="/driver/manifest.webmanifest" />
+<meta name="theme-color" content="#0a0f1a" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2224%22 font-size=%2226%22>🚚</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/tokens.css" />
+<style>
+  body { padding: env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0); }
+  .wrap { max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+  header { padding: 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line-soft); }
+  header .brand { font-family: var(--font-display); font-size: 20px; font-weight: 700; }
+  main { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  .big-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    padding: 22px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-3);
+    font-size: 15px; font-weight: 600; cursor: pointer; min-height: 84px; }
+  .big-btn .emoji { font-size: 26px; }
+  .big-btn:active { background: var(--panel); }
+  .big-btn.primary { background: var(--frost); color: #ffffff; border-color: var(--frost); }
+  .grid2b { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .status-bar { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line-soft); font-size: 13px; }
+  .queue-badge { margin-left: auto; font-family: var(--font-mono); font-size: 12px; color: var(--amber); }
+  .ship-picker { padding: 12px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line-soft); }
+  .log { font-size: 12.5px; color: var(--text-dim); display: flex; flex-direction: column; gap: 6px; max-height: 260px; overflow-y: auto; }
+  .log .row { display: flex; gap: 8px; border-bottom: 1px solid var(--line-soft); padding-bottom: 6px; }
+  .log .row .ts { font-family: var(--font-mono); color: var(--text-faint); flex: none; }
+  .log .row.pending { color: var(--amber); }
+  textarea#note { width: 100%; min-height: 70px; }
+  select#ship-select { width: 100%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">🚚 ColdTrace <span style="color:var(--text-faint);font-size:12px;font-weight:500">Driver</span></div>
+    <button class="btn btn-ghost btn-sm" id="logout">Sign out</button>
+  </header>
+  <main>
+    <div id="login-box">
+      <div class="field"><label>Username</label><input type="text" id="user" value="driver" /></div>
+      <div class="field"><label>Password</label><input type="password" id="pass" value="coldtrace" /></div>
+      <button class="btn btn-primary" style="width:100%" id="login-btn">Sign in</button>
+      <div id="login-err" class="hint" style="color:var(--red)"></div>
+    </div>
+    <div id="app-box" style="display:none">
+      <div class="status-bar">
+        <span class="led" id="net-led"></span>
+        <span id="net-text">checking connection…</span>
+        <span class="queue-badge" id="queue-badge"></span>
+      </div>
+      <div class="ship-picker">
+        <label>Active shipment</label>
+        <select id="ship-select"></select>
+      </div>
+      <div class="grid2b">
+        <div class="big-btn primary" data-event="loading_started"><span class="emoji">📦</span>Start loading</div>
+        <div class="big-btn" data-event="departed"><span class="emoji">🚛</span>Departed</div>
+        <div class="big-btn" data-event="door_opened"><span class="emoji">🚪</span>Door opened</div>
+        <div class="big-btn" data-event="door_closed"><span class="emoji">✅</span>Door closed</div>
+        <div class="big-btn" data-event="arrived"><span class="emoji">📍</span>Arrived</div>
+        <div class="big-btn" data-event="unloading_started"><span class="emoji">🏭</span>Unloading started</div>
+      </div>
+      <div class="field">
+        <label>Voice note / comment (optional)</label>
+        <textarea id="note" placeholder="e.g. Reefer alarm beeped twice near the highway checkpoint"></textarea>
+        <button class="btn btn-sm" id="send-note" style="margin-top:6px">Send note</button>
+      </div>
+      <div>
+        <label>Recent check-ins</label>
+        <div class="log" id="log"></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/driver/driver.js"></script>
+</body>
+</html>

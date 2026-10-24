@@ -1,0 +1,113 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# ColdTrace — Git Ignore Specification
+# ══════════════════════════════════════════════════════════════════════════════
+
+# --- Environment & Secret Credentials ---
+.env
+.env.*
+!.env.example
+*.env
+**/.jwt_secret
+data/.jwt_secret
+**/data/.jwt_secret
+
+# --- Python & Bytecode ---
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual Environments ---
+.venv/
+**/.venv/
+venv/
+**/venv/
+ENV/
+env/
+
+# --- Database & Runtime State ---
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+data/*.db*
+**/data/*.db*
+data/coldtrace.db
+data/coldtrace.db-wal
+data/coldtrace.db-shm
+
+# --- Machine Learning Models & Serialized Artifacts ---
+models/*.joblib
+**/models/*.joblib
+models/model_card.json
+**/models/model_card.json
+*.pkl
+*.onnx
+
+# --- Testing & Coverage ---
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+htmlcov/
+
+# --- Logs & Process Output ---
+*.log
+**/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Node / Frontend (if applicable) ---
+node_modules/
+**/node_modules/
+
+# --- OS & System Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# --- IDE & Editor Artifacts ---
+.idea/
+**/.idea/
+.vscode/
+**/.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+.agent/
+**/.agent/

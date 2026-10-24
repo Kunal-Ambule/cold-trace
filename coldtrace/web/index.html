@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ColdTrace — Cold-Chain Control Room</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2224%22 font-size=%2226%22>🧊</text></svg>">
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/tokens.css" />
+<link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="card login-card">
+    <div class="brand"><span class="mark"></span>ColdTrace</div>
+    <div class="lede">AI-powered autonomous cold-chain &amp; agri-perishable logistics</div>
+    <form id="login-form">
+      <div class="field"><label>Username</label><input type="text" id="login-user" autocomplete="username" required /></div>
+      <div class="field"><label>Password</label><input type="password" id="login-pass" autocomplete="current-password" required /></div>
+      <button class="btn btn-primary" style="width:100%" type="submit">Sign in</button>
+      <div id="login-error" class="hint" style="color:var(--red); margin-top:8px;"></div>
+    </form>
+    <div class="hint" style="margin-top:14px;">Demo accounts (password = <span class="mono">coldtrace</span>):</div>
+    <div class="demo-users">
+      <button class="btn btn-sm" data-user="dispatcher">dispatcher</button>
+      <button class="btn btn-sm" data-user="driver">driver</button>
+      <button class="btn btn-sm" data-user="auditor">auditor</button>
+      <button class="btn btn-sm" data-user="admin">admin</button>
+    </div>
+  </div>
+</div>
+
+<div id="app">
+  <div id="topbar">
+    <div class="brand"><span class="mark"></span>ColdTrace<span class="tag">COLD-CHAIN INTELLIGENCE</span></div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="fleet">Fleet</div>
+      <div class="tab" data-tab="disputes">Disputes</div>
+      <div class="tab" data-tab="prices">Market prices</div>
+      <div class="tab" data-tab="admin">Data &amp; models</div>
+    </div>
+    <div class="spacer"></div>
+    <div id="connbadge"><span class="led" id="conn-led"></span><span id="conn-text">connecting…</span></div>
+    <div id="whoami"></div>
+    <button class="btn btn-ghost btn-sm" id="logout-btn">Sign out</button>
+  </div>
+  <div id="rail"></div>
+  <div id="main"></div>
+  <div id="feed"></div>
+</div>
+
+<div id="modal-root"></div>
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script src="/vendor/leaflet/leaflet.js"></script>
+<script src="/vendor/chartjs/chart.umd.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/mapview.js"></script>
+<script src="/js/telemetry.js"></script>
+<script src="/js/fleet.js"></script>
+<script src="/js/shipment.js"></script>
+<script src="/js/disputes.js"></script>
+<script src="/js/prices.js"></script>
+<script src="/js/admin.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

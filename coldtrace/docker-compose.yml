@@ -1,0 +1,26 @@
+# Runs ColdTrace plus a local Ollama instance for the LLM-narrated agent steps.
+# Quick start:
+#   docker compose up --build
+#   docker compose exec app python scripts/fetch_data.py --all   # first run only, needs internet
+#   docker compose exec ollama ollama pull llama3.2:3b            # first run only
+#   open http://localhost:8000
+services:
+  app:
+    build: .
+    ports: ["8000:8000"]
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - OLLAMA_URL=http://ollama:11434
+      - LLM_PROVIDER=ollama
+    depends_on: [ollama]
+
+  ollama:
+    image: ollama/ollama:latest
+    ports: ["11434:11434"]
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:
